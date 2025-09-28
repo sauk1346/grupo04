@@ -90,26 +90,82 @@
             </div>
         </div>
 
-        <!-- Slide 4: Metodología y Planificación -->
+        <!-- Slide 4: Proceso de Cocreación (NUEVA) -->
+        <div class="slide">
+            <div class="slide-header">
+                <h2>Proceso de Cocreación</h2>
+            </div>
+            <div class="slide-content">
+                <div class="block" style="margin-bottom: 20px;">
+                    <h3>Marco Metodológico</h3>
+                    <p style="font-size: 1.2em;">Modelo de Sanders y Stappers: <span class="bold">Hacer, Decir, Usar</span></p>
+                </div>
+
+                <div class="columns">
+                    <div class="column">
+                        <div class="block">
+                            <h3>Participantes</h3>
+                            <ul>
+                                <li><span class="bold">8-12 Estudiantes</span> (diferentes niveles)</li>
+                                <li><span class="bold">6-8 Docentes</span> (diversas áreas)</li>
+                                <li><span class="bold">2-3 Administradores</span> (coordinación)</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="column">
+                        <div class="block">
+                            <h3>Fases del Proceso</h3>
+                            <ul>
+                                <li><span class="bold">Fase 1:</span> Levantamiento de necesidades</li>
+                                <li><span class="bold">Fase 2:</span> Co-diseño de soluciones</li>
+                                <li><span class="bold">Fase 3:</span> Validación y refinamiento</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="metrics-grid">
+                    <div class="metric-card">
+                        <div class="metric-value">≥85%</div>
+                        <div class="metric-label">Tasa de Completitud</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-value">≥70</div>
+                        <div class="metric-label">System Usability Scale</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-value">≥80%</div>
+                        <div class="metric-label">Funcionalidades Validadas</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 5: Metodología y Planificación (ACTUALIZADA) -->
         <div class="slide">
             <div class="slide-header">
                 <h2>Metodología y Planificación</h2>
             </div>
             <div class="slide-content">
                 <div class="block" style="margin-bottom: 20px;">
-                    <h3>Marco ágil</h3>
-                    <p style="font-size: 1.2em;">Scrum con 12 sprints organizados en 3 fases de desarrollo incremental</p>
+                    <h3>Marco ágil Scrum</h3>
+                    <p style="font-size: 1.2em;">12 sprints | 101 tareas | 750+ horas estimadas</p>
                 </div>
 
                 <div class="columns">
                     <div class="column">
                         <div class="block">
                             <h3>Fase 1 (Sprints 1-4)</h3>
+                            <div class="phase-stats">
+                                <span class="stat-value">280h</span>
+                                <span class="stat-label">14h/semana/persona</span>
+                            </div>
                             <ul>
-                                <li>Autenticación</li>
-                                <li>CRUD cursos</li>
-                                <li>Evaluaciones básicas</li>
-                                <li>Certificados iniciales</li>
+                                <li>Autenticación y roles</li>
+                                <li>CRUD cursos básico</li>
+                                <li>Evaluaciones simples</li>
+                                <li>Certificados QR</li>
                             </ul>
                         </div>
                     </div>
@@ -117,11 +173,15 @@
                     <div class="column">
                         <div class="block">
                             <h3>Fase 2 (Sprints 5-8)</h3>
+                            <div class="phase-stats">
+                                <span class="stat-value">260h</span>
+                                <span class="stat-label">13h/semana/persona</span>
+                            </div>
                             <ul>
                                 <li>Móvil y accesibilidad</li>
-                                <li>OAuth y 2FA</li>
-                                <li>IA resúmenes</li>
-                                <li>Métricas tiempo real</li>
+                                <li>OAuth, 2FA, SSO</li>
+                                <li><span class="bold">IA resúmenes</span></li>
+                                <li>Observabilidad completa</li>
                             </ul>
                         </div>
                     </div>
@@ -129,23 +189,117 @@
                     <div class="column">
                         <div class="block">
                             <h3>Fase 3 (Sprints 9-12)</h3>
+                            <div class="phase-stats">
+                                <span class="stat-value">210h</span>
+                                <span class="stat-label">10.5h/semana/persona</span>
+                            </div>
                             <ul>
-                                <li>Pruebas rendimiento</li>
-                                <li>Seguridad avanzada</li>
+                                <li>Testing 500+ usuarios</li>
+                                <li>Seguridad enterprise</li>
                                 <li>CI/CD completo</li>
                                 <li>Release candidato</li>
                             </ul>
                         </div>
                     </div>
                 </div>
+            </div>
+        </div>
+
+        <!-- Slide 6: Work Breakdown Structure y Ruta Crítica (NUEVA) -->
+        <div class="slide">
+            <div class="slide-header">
+                <h2>Work Breakdown Structure y Ruta Crítica</h2>
+            </div>
+            <div class="slide-content">
+                <div class="columns">
+                    <div class="column">
+                        <div class="block">
+                            <h3>Estructura del Equipo</h3>
+                            <ul>
+                                <li><span class="bold">PO/UX:</span> 80-100h (Historias, feedback)</li>
+                                <li><span class="bold">Backend Lead:</span> 140-160h (Arquitectura)</li>
+                                <li><span class="bold">Backend:</span> 120-140h (APIs, lógica)</li>
+                                <li><span class="bold">Frontend:</span> 130-150h (UI/UX)</li>
+                                <li><span class="bold">Fullstack:</span> 140-160h (Integración)</li>
+                                <li><span class="bold">QA:</span> 60-80h (Testing)</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="block">
+                            <h3>Sprints Clave</h3>
+                            <div class="sprint-legend">
+                                <div class="sprint-item">
+                                    <span class="sprint-code">S1:</span> Setup + Modelos básicos
+                                </div>
+                                <div class="sprint-item">
+                                    <span class="sprint-code">S2:</span> Evaluaciones + Progreso
+                                </div>
+                                <div class="sprint-item">
+                                    <span class="sprint-code">S3:</span> Certificados + Admin
+                                </div>
+                                <div class="sprint-item">
+                                    <span class="sprint-code">S6:</span> OAuth + 2FA
+                                </div>
+                                <div class="sprint-item">
+                                    <span class="sprint-code">S8:</span> IA Resúmenes
+                                </div>
+                                <div class="sprint-item">
+                                    <span class="sprint-code">S11:</span> CI/CD + UAT
+                                </div>
+                                <div class="sprint-item">
+                                    <span class="sprint-code">S12:</span> Release Final
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="column">
+                        <div class="block">
+                            <h3>Ruta Crítica Principal</h3>
+                            <div class="critical-path">
+                                <div class="path-phase">
+                                    <h4>FASE 1: Fundación</h4>
+                                    <div class="path-detail">
+                                        <span class="task-desc">Levantamiento HU</span> →
+                                        <span class="task-desc">Modelos BD</span> →
+                                        <span class="task-desc">Sistema Quiz</span> →
+                                        <span class="task-desc">Calificaciones</span> →
+                                        <span class="task-desc">Certificados QR</span>
+                                    </div>
+                                </div>
+                                <div class="path-arrow">↓</div>
+                                <div class="path-phase">
+                                    <h4>FASE 2: Funcionalidades</h4>
+                                    <div class="path-detail">
+                                        <span class="task-desc">OAuth</span> →
+                                        <span class="task-desc">Métricas</span> →
+                                        <span class="task-desc">API IA</span> →
+                                        <span class="task-desc">Resúmenes Auto</span>
+                                    </div>
+                                </div>
+                                <div class="path-arrow">↓</div>
+                                <div class="path-phase">
+                                    <h4>FASE 3: Producción</h4>
+                                    <div class="path-detail">
+                                        <span class="task-desc">Optimización BD</span> →
+                                        <span class="task-desc">Testing E2E</span> →
+                                        <span class="task-desc">Seguridad Final</span> →
+                                        <span class="task-desc">Deploy</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
                 <div style="text-align: center; margin-top: 20px; padding: 15px; background: #f0f4f8; border-radius: 10px;">
-                    <span class="bold" style="font-size: 1.2em;">Equipo:</span> PO/UX, Backend Lead, Backend, Frontend, Fullstack, QA
+                    <span class="bold" style="font-size: 1.2em;">Duración total:</span> 12 semanas | 
+                    <span class="bold">Margen de seguridad:</span> 3-5 días por fase
                 </div>
             </div>
         </div>
 
-        <!-- Slide 5: Requerimientos -->
+        <!-- Slide 7: Requerimientos -->
         <div class="slide">
             <div class="slide-header">
                 <h2>Requerimientos</h2>
@@ -192,7 +346,7 @@
             </div>
         </div>
 
-        <!-- Slide 6: Diagrama de Casos de Uso -->
+        <!-- Slide 8: Diagrama de Casos de Uso -->
         <div class="slide diagram-slide">
             <div class="slide-header">
                 <h2>Diagrama de Casos de Uso</h2>
@@ -207,7 +361,7 @@
             </div>
         </div>
 
-        <!-- Slide 7: Diagrama de Clases -->
+        <!-- Slide 9: Diagrama de Clases -->
         <div class="slide diagram-slide">
             <div class="slide-header">
                 <h2>Diagrama de Clases</h2>
@@ -222,7 +376,7 @@
             </div>
         </div>
 
-        <!-- Slide 8: Diagrama de Secuencia -->
+        <!-- Slide 10: Diagrama de Secuencia -->
         <div class="slide diagram-slide">
             <div class="slide-header">
                 <h2>Diagrama de Secuencia - Estudiante Realiza Quiz</h2>
@@ -237,7 +391,7 @@
             </div>
         </div>
 
-        <!-- Slide 9: Diagrama de Actividad -->
+        <!-- Slide 11: Diagrama de Actividad -->
         <div class="slide diagram-slide">
             <div class="slide-header">
                 <h2>Diagrama de Actividad - Flujo de Curso Online</h2>
@@ -252,7 +406,7 @@
             </div>
         </div>
 
-        <!-- Slide 10: Patrones de Diseño -->
+        <!-- Slide 12: Patrones de Diseño -->
         <div class="slide">
             <div class="slide-header">
                 <h2>Patrones de Diseño</h2>
@@ -305,7 +459,7 @@
             </div>
         </div>
 
-        <!-- Slide 11: Estándares de Calidad -->
+        <!-- Slide 13: Estándares de Calidad (AMPLIADA) -->
         <div class="slide">
             <div class="slide-header">
                 <h2>Estándares de Calidad</h2>
@@ -329,14 +483,28 @@
                         <div class="block">
                             <h3>ISO/IEC 25000 (SQuaRE)</h3>
                             <p style="font-weight: bold; margin-bottom: 10px;">Métricas objetivas de calidad</p>
-                            <ul>
-                                <li>Latencia ≤2s promedio</li>
-                                <li>Uptime ≥99.5%</li>
-                                <li>Accesibilidad WCAG 2.1 AA</li>
-                                <li>Seguridad: 100% datos encriptados</li>
-                                <li>Escalabilidad: 500+ usuarios</li>
-                                <li>Mantenibilidad: >70% cobertura</li>
-                            </ul>
+                            <div class="quality-metrics">
+                                <div class="quality-row">
+                                    <span class="metric-name">Eficiencia:</span>
+                                    <span class="metric-target">≤2s latencia, <70% CPU</span>
+                                </div>
+                                <div class="quality-row">
+                                    <span class="metric-name">Confiabilidad:</span>
+                                    <span class="metric-target">≥99.5% uptime, >720h MTBF</span>
+                                </div>
+                                <div class="quality-row">
+                                    <span class="metric-name">Seguridad:</span>
+                                    <span class="metric-target">100% datos encriptados</span>
+                                </div>
+                                <div class="quality-row">
+                                    <span class="metric-name">Escalabilidad:</span>
+                                    <span class="metric-target">500+ usuarios concurrentes</span>
+                                </div>
+                                <div class="quality-row">
+                                    <span class="metric-name">Mantenibilidad:</span>
+                                    <span class="metric-target">>70% cobertura tests</span>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -347,7 +515,7 @@
             </div>
         </div>
 
-        <!-- Slide 12: Trazabilidad y Riesgos -->
+        <!-- Slide 14: Trazabilidad y Riesgos -->
         <div class="slide">
             <div class="slide-header">
                 <h2>Trazabilidad y Riesgos</h2>
@@ -399,7 +567,7 @@
             </div>
         </div>
 
-        <!-- Slide 13: Matriz 3x3 de Riesgos -->
+        <!-- Slide 15: Matriz 3x3 de Riesgos -->
         <div class="slide">
             <div class="slide-header">
                 <h2>Matriz 3x3 de Riesgos</h2>
@@ -412,7 +580,7 @@
             </div>
         </div>
 
-        <!-- Slide 14: Conclusiones -->
+        <!-- Slide 16: Conclusiones -->
         <div class="slide">
             <div class="slide-header">
                 <h2>Conclusiones</h2>
@@ -454,7 +622,7 @@
     <!-- Controles de navegación -->
     <div class="navigation">
         <button class="nav-button" id="prevBtn">◀ Anterior</button>
-        <span class="slide-counter" id="slideCounter">1 / 14</span>
+        <span class="slide-counter" id="slideCounter">1 / 16</span>
         <button class="nav-button" id="nextBtn">Siguiente ▶</button>
     </div>
 

@@ -247,6 +247,183 @@ body {
     z-index: 1;
 }
 
+/* Nuevos estilos para métricas de cocreación */
+.metrics-grid {
+    display: flex;
+    gap: 15px;
+    margin-top: 20px;
+    justify-content: center;
+}
+
+.metric-card {
+    background: linear-gradient(135deg, #4facfe 0%, #2a5298 100%);
+    color: white;
+    padding: 20px;
+    border-radius: 12px;
+    text-align: center;
+    min-width: 140px;
+    box-shadow: 0 8px 25px rgba(79, 172, 254, 0.3);
+    transition: transform 0.3s ease;
+}
+
+.metric-card:hover {
+    transform: translateY(-5px);
+}
+
+.metric-value {
+    font-size: 2.2em;
+    font-weight: bold;
+    margin-bottom: 5px;
+    text-shadow: 1px 1px 3px rgba(0,0,0,0.3);
+}
+
+.metric-label {
+    font-size: 0.9em;
+    opacity: 0.9;
+    font-weight: 500;
+}
+
+/* Estilos para estadísticas de fases */
+.phase-stats {
+    background: rgba(30, 60, 114, 0.1);
+    padding: 10px;
+    border-radius: 8px;
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+.stat-value {
+    font-size: 1.8em;
+    font-weight: bold;
+    color: #1e3c72;
+    display: block;
+}
+
+.stat-label {
+    font-size: 0.9em;
+    color: #666;
+    font-weight: 500;
+}
+
+/* Estilos para sprints legend */
+.sprint-legend {
+    background: rgba(248, 250, 252, 0.8);
+    padding: 15px;
+    border-radius: 10px;
+    border: 1px solid rgba(30, 60, 114, 0.1);
+}
+
+.sprint-item {
+    display: flex;
+    align-items: center;
+    padding: 6px 0;
+    font-size: 0.9em;
+    border-bottom: 1px solid rgba(30, 60, 114, 0.05);
+}
+
+.sprint-item:last-child {
+    border-bottom: none;
+}
+
+.sprint-code {
+    background: linear-gradient(135deg, #4facfe 0%, #2a5298 100%);
+    color: white;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    margin-right: 10px;
+    min-width: 35px;
+    text-align: center;
+    font-size: 0.8em;
+}
+
+/* Estilos para ruta crítica */
+.critical-path {
+    background: linear-gradient(145deg, #f8fafc 0%, #ffffff 100%);
+    padding: 20px;
+    border-radius: 12px;
+    border: 2px solid rgba(30, 60, 114, 0.2);
+}
+
+.path-phase {
+    margin-bottom: 15px;
+    padding: 15px;
+    background: rgba(79, 172, 254, 0.1);
+    border-radius: 8px;
+    border-left: 4px solid #4facfe;
+}
+
+.path-phase h4 {
+    color: #1e3c72;
+    font-size: 1.1em;
+    margin-bottom: 8px;
+    font-weight: 600;
+}
+
+.path-detail {
+    font-size: 0.9em;
+    color: #555;
+    background: rgba(255, 255, 255, 0.8);
+    padding: 8px;
+    border-radius: 4px;
+    line-height: 1.4;
+}
+
+.task-desc {
+    background: rgba(79, 172, 254, 0.2);
+    padding: 2px 6px;
+    border-radius: 3px;
+    font-weight: 500;
+    color: #1e3c72;
+    font-size: 0.85em;
+    margin: 2px;
+    display: inline-block;
+}
+
+.path-arrow {
+    text-align: center;
+    font-size: 1.5em;
+    color: #2a5298;
+    font-weight: bold;
+    margin: 10px 0;
+}
+
+/* Estilos para métricas de calidad ampliadas */
+.quality-metrics {
+    background: rgba(248, 250, 252, 0.8);
+    padding: 15px;
+    border-radius: 10px;
+    border: 1px solid rgba(30, 60, 114, 0.1);
+}
+
+.quality-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 0;
+    border-bottom: 1px solid rgba(30, 60, 114, 0.1);
+}
+
+.quality-row:last-child {
+    border-bottom: none;
+}
+
+.metric-name {
+    font-weight: 600;
+    color: #1e3c72;
+    flex: 1;
+}
+
+.metric-target {
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+    color: #2a5298;
+    background: rgba(79, 172, 254, 0.1);
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-weight: 500;
+}
+
 /* Listas */
 ul {
     list-style: none;
@@ -548,5 +725,24 @@ li::before {
     
     .title-slide h1 {
         font-size: 2.5em;
+    }
+    
+    .metrics-grid {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .metric-card {
+        min-width: 200px;
+    }
+    
+    .quality-row {
+        flex-direction: column;
+        gap: 5px;
+        align-items: flex-start;
+    }
+    
+    .metric-target {
+        align-self: flex-end;
     }
 }
