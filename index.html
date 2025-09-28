@@ -4,559 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Plataforma de Gestión de Cursos Online</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 50%, #4facfe 100%);
-            background-size: 400% 400%;
-            animation: gradientShift 15s ease infinite;
-            color: #333;
-            overflow: hidden;
-        }
-
-        @keyframes gradientShift {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
-
-        .presentation-container {
-            width: 100vw;
-            height: 100vh;
-            position: relative;
-        }
-
-        .slide {
-            width: 100%;
-            height: 100%;
-            padding: 40px;
-            display: none;
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(15px);
-            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
-            position: absolute;
-            top: 0;
-            left: 0;
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            transition: all 0.5s ease;
-        }
-
-        .slide.active {
-            display: flex;
-            flex-direction: column;
-            animation: slideIn 0.6s ease-out;
-        }
-
-        @keyframes slideIn {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        /* Header estilo Warsaw mejorado */
-        .slide-header {
-            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
-            color: white;
-            padding: 20px 30px;
-            margin: -40px -40px 30px -40px;
-            position: relative;
-            border-radius: 15px 15px 0 0;
-            box-shadow: 0 8px 30px rgba(30, 60, 114, 0.3);
-            border-bottom: 3px solid rgba(255, 255, 255, 0.2);
-        }
-
-        .slide-header::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: linear-gradient(45deg, transparent 30%, rgba(255,255,255,0.1) 50%, transparent 70%);
-            animation: shimmer 3s infinite;
-        }
-
-        @keyframes shimmer {
-            0% { transform: translateX(-100%); }
-            100% { transform: translateX(100%); }
-        }
-
-        .slide-header h1 {
-            font-size: 2.2em;
-            font-weight: 700;
-            text-shadow: 2px 2px 8px rgba(0,0,0,0.3);
-            position: relative;
-            z-index: 1;
-        }
-
-        .slide-header h2 {
-            font-size: 1.8em;
-            font-weight: 600;
-            margin-bottom: 10px;
-            position: relative;
-            z-index: 1;
-            text-shadow: 1px 1px 4px rgba(0,0,0,0.2);
-        }
-
-        /* Slide de título mejorado */
-        .title-slide {
-            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 50%, #4facfe 100%);
-            background-size: 400% 400%;
-            animation: gradientShift 15s ease infinite;
-            color: white;
-            text-align: center;
-            justify-content: center;
-            align-items: center;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .title-slide::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: radial-gradient(circle at 20% 50%, rgba(255,255,255,0.1) 0%, transparent 50%),
-                        radial-gradient(circle at 80% 20%, rgba(255,255,255,0.1) 0%, transparent 50%),
-                        radial-gradient(circle at 40% 80%, rgba(255,255,255,0.1) 0%, transparent 50%);
-            animation: float 6s ease-in-out infinite alternate;
-        }
-
-        @keyframes float {
-            0% { transform: translate(0px, 0px) rotate(0deg); }
-            100% { transform: translate(30px, -30px) rotate(10deg); }
-        }
-
-        .title-slide h1 {
-            font-size: 3.8em;
-            margin-bottom: 30px;
-            text-shadow: 3px 3px 12px rgba(0,0,0,0.5);
-            position: relative;
-            z-index: 1;
-            font-weight: 800;
-            letter-spacing: -1px;
-            animation: titleGlow 2s ease-in-out infinite alternate;
-        }
-
-        @keyframes titleGlow {
-            0% { text-shadow: 3px 3px 12px rgba(0,0,0,0.5); }
-            100% { text-shadow: 3px 3px 20px rgba(255,255,255,0.3), 3px 3px 12px rgba(0,0,0,0.5); }
-        }
-
-        .title-slide .authors {
-            font-size: 1.4em;
-            margin-bottom: 25px;
-            opacity: 0.95;
-            position: relative;
-            z-index: 1;
-            font-weight: 500;
-            text-shadow: 1px 1px 4px rgba(0,0,0,0.3);
-        }
-
-        .title-slide .institute {
-            font-size: 1.1em;
-            margin-bottom: 30px;
-            opacity: 0.9;
-            position: relative;
-            z-index: 1;
-            line-height: 1.6;
-            text-shadow: 1px 1px 4px rgba(0,0,0,0.3);
-        }
-
-        .title-slide .date {
-            font-size: 1.3em;
-            font-weight: 600;
-            position: relative;
-            z-index: 1;
-            padding: 12px 24px;
-            background: rgba(255, 255, 255, 0.15);
-            border-radius: 25px;
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            text-shadow: 1px 1px 4px rgba(0,0,0,0.3);
-        }
-
-        /* Contenido principal */
-        .slide-content {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-        }
-
-        /* Columnas */
-        .columns {
-            display: flex;
-            gap: 20px;
-            flex: 1;
-        }
-
-        .column {
-            flex: 1;
-        }
-
-        /* Bloques mejorados */
-        .block {
-            background: linear-gradient(145deg, #ffffff 0%, #f8fafc 100%);
-            border: 1px solid rgba(30, 60, 114, 0.2);
-            border-radius: 15px;
-            padding: 25px;
-            margin-bottom: 20px;
-            box-shadow: 0 8px 25px rgba(0,0,0,0.08), 0 2px 8px rgba(30, 60, 114, 0.1);
-            transition: all 0.4s ease;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .block::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(30, 60, 114, 0.1), transparent);
-            transition: left 0.6s ease;
-        }
-
-        .block:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 15px 40px rgba(0,0,0,0.15), 0 5px 15px rgba(30, 60, 114, 0.2);
-            border-color: rgba(30, 60, 114, 0.4);
-        }
-
-        .block:hover::before {
-            left: 100%;
-        }
-
-        .block h3 {
-            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
-            color: white;
-            padding: 15px 20px;
-            margin: -25px -25px 20px -25px;
-            border-radius: 15px 15px 0 0;
-            font-size: 1.3em;
-            font-weight: 600;
-            text-shadow: 1px 1px 3px rgba(0,0,0,0.2);
-            position: relative;
-            z-index: 1;
-        }
-
-        /* Listas */
-        ul {
-            list-style: none;
-            padding-left: 0;
-        }
-
-        li {
-            margin: 8px 0;
-            padding: 5px 0 5px 20px;
-            position: relative;
-        }
-
-        li::before {
-            content: "▶";
-            color: #2c5282;
-            position: absolute;
-            left: 0;
-            font-size: 0.8em;
-        }
-
-        /* Texto en negrita */
-        .bold {
-            font-weight: bold;
-            color: #2c5282;
-        }
-
-        /* Imágenes con zoom mejoradas */
-        .image-container {
-            text-align: center;
-            margin: 20px 0;
-            position: relative;
-        }
-
-        .zoomable-image {
-            max-width: 100%;
-            max-height: 400px;
-            cursor: pointer;
-            border-radius: 12px;
-            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
-            transition: all 0.4s ease;
-            border: 2px solid rgba(30, 60, 114, 0.2);
-        }
-
-        .zoomable-image:hover {
-            transform: scale(1.05) rotate(1deg);
-            box-shadow: 0 15px 40px rgba(0,0,0,0.25);
-            border-color: rgba(30, 60, 114, 0.4);
-        }
-
-        /* Modal para zoom de imágenes */
-        .image-modal {
-            display: none;
-            position: fixed;
-            z-index: 1000;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0,0,0,0.98);
-            cursor: pointer;
-            backdrop-filter: blur(8px);
-        }
-
-        .modal-content {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            max-width: 98%;
-            max-height: 98%;
-            border-radius: 10px;
-            box-shadow: 0 25px 80px rgba(0,0,0,0.8);
-            transition: transform 0.4s ease;
-            cursor: zoom-out;
-            object-fit: contain;
-        }
-
-        .modal-content:hover {
-            transform: translate(-50%, -50%) scale(1.01);
-        }
-
-        .close {
-            position: fixed;
-            top: 20px;
-            right: 30px;
-            color: #ffffff;
-            font-size: 60px;
-            font-weight: bold;
-            cursor: pointer;
-            z-index: 1001;
-            background: rgba(0,0,0,0.8);
-            border-radius: 50%;
-            width: 80px;
-            height: 80px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.3s ease;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
-        }
-
-        .close:hover {
-            background: rgba(220,20,20,0.9);
-            transform: scale(1.15);
-            box-shadow: 0 0 20px rgba(220,20,20,0.5);
-        }
-
-        /* Indicador de zoom */
-        .zoom-hint {
-            position: fixed;
-            bottom: 30px;
-            left: 50%;
-            transform: translateX(-50%);
-            color: white;
-            background: rgba(0,0,0,0.8);
-            padding: 12px 25px;
-            border-radius: 25px;
-            font-size: 15px;
-            z-index: 1001;
-            opacity: 0.9;
-            border: 1px solid rgba(255,255,255,0.2);
-            backdrop-filter: blur(10px);
-        }
-
-        /* Controles de navegación mejorados */
-        .navigation {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            background: linear-gradient(135deg, rgba(30, 60, 114, 0.9) 0%, rgba(42, 82, 152, 0.9) 100%);
-            backdrop-filter: blur(15px);
-            padding: 12px 24px;
-            border-radius: 25px;
-            z-index: 100;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            box-shadow: 0 8px 25px rgba(0,0,0,0.2);
-        }
-
-        .nav-button {
-            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
-            color: white;
-            border: none;
-            padding: 12px 20px;
-            margin: 0 5px;
-            border-radius: 20px;
-            cursor: pointer;
-            font-size: 14px;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(30, 60, 114, 0.3);
-            text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
-        }
-
-        .nav-button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(30, 60, 114, 0.4);
-            background: linear-gradient(135deg, #2a5298 0%, #4facfe 100%);
-        }
-
-        .nav-button:disabled {
-            background: linear-gradient(135deg, #a0a0a0 0%, #808080 100%);
-            cursor: not-allowed;
-            transform: none;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-        }
-
-        .slide-counter {
-            color: white;
-            margin: 0 15px;
-            font-size: 14px;
-            font-weight: 600;
-            text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
-        }
-
-        /* Matriz de riesgos */
-        .risk-matrix {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 10px;
-            margin: 20px 0;
-            max-width: 600px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-        .risk-cell {
-            aspect-ratio: 1;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: bold;
-            border: 2px solid #333;
-            border-radius: 8px;
-            font-size: 0.9em;
-        }
-
-        .risk-low { background-color: #4CAF50; color: black; }
-        .risk-medium { background-color: #FFEB3B; color: black; }
-        .risk-high { background-color: #FF9800; color: black; }
-        .risk-critical { background-color: #F44336; color: white; }
-
-        /* Leyenda de la matriz */
-        .matrix-legend {
-            text-align: center;
-            margin-top: 20px;
-        }
-
-        .axis-label {
-            font-weight: bold;
-            font-size: 1.1em;
-            margin: 10px 0;
-        }
-
-        /* Contenedor con scroll para diagramas */
-        .scrollable-content {
-            flex: 1;
-            overflow: auto;
-            padding: 20px;
-            height: 100%;
-            max-height: calc(100vh - 120px);
-        }
-
-        .diagram-container {
-            text-align: center;
-            padding: 20px;
-            width: 100%;
-            display: flex;
-            justify-content: center;
-            align-items: flex-start;
-        }
-
-        .large-diagram {
-            width: auto;
-            height: auto;
-            max-width: none;
-            max-height: none;
-            min-width: 1400px;
-            cursor: pointer;
-            border-radius: 8px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-            transition: transform 0.3s ease;
-            margin: 20px 0;
-            display: block;
-        }
-
-        .large-diagram:hover {
-            transform: scale(1.01);
-        }
-
-        .diagram-title {
-            font-size: 1.4em;
-            color: #2c5282;
-            font-weight: bold;
-            margin-bottom: 15px;
-            text-align: center;
-        }
-
-        .diagram-description {
-            max-width: 800px;
-            font-size: 1.1em;
-            line-height: 1.6;
-            color: #555;
-            text-align: center;
-            margin-bottom: 20px;
-        }
-
-        /* Scroll personalizado */
-        .scrollable-content::-webkit-scrollbar {
-            width: 12px;
-            height: 12px;
-        }
-
-        .scrollable-content::-webkit-scrollbar-track {
-            background: #f1f1f1;
-            border-radius: 6px;
-        }
-
-        .scrollable-content::-webkit-scrollbar-thumb {
-            background: #3182ce;
-            border-radius: 6px;
-        }
-
-        .scrollable-content::-webkit-scrollbar-thumb:hover {
-            background: #2c5282;
-        }
-        @media (max-width: 768px) {
-            .slide {
-                padding: 20px;
-            }
-            
-            .columns {
-                flex-direction: column;
-            }
-            
-            .slide-header h1 {
-                font-size: 1.8em;
-            }
-            
-            .title-slide h1 {
-                font-size: 2.5em;
-            }
-        }
-    </style>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <div class="presentation-container">
@@ -580,7 +28,7 @@
             </div>
             <div class="slide-content">
                 <div class="image-container">
-                    <img src="https://via.placeholder.com/600x300/3182ce/white?text=Plataforma+Educativa" 
+                    <img src="images/fig06.png" 
                          alt="Plataforma integral" class="zoomable-image">
                 </div>
                 
@@ -752,7 +200,7 @@
             <div class="slide-content">
                 <div class="scrollable-content">
                     <div class="diagram-container">
-                        <img src="images/fig01.png" 
+                        <img src="images/fig01.svg" 
                              alt="Diagrama de Casos de Uso" class="large-diagram zoomable-image">
                     </div>
                 </div>
@@ -857,7 +305,7 @@
             </div>
         </div>
 
-        <!-- Slide 10: Estándares de Calidad -->
+        <!-- Slide 11: Estándares de Calidad -->
         <div class="slide">
             <div class="slide-header">
                 <h2>Estándares de Calidad</h2>
@@ -899,7 +347,7 @@
             </div>
         </div>
 
-        <!-- Slide 11: Trazabilidad y Riesgos -->
+        <!-- Slide 12: Trazabilidad y Riesgos -->
         <div class="slide">
             <div class="slide-header">
                 <h2>Trazabilidad y Riesgos</h2>
@@ -951,7 +399,7 @@
             </div>
         </div>
 
-        <!-- Slide 12: Matriz 3x3 de Riesgos -->
+        <!-- Slide 13: Matriz 3x3 de Riesgos -->
         <div class="slide">
             <div class="slide-header">
                 <h2>Matriz 3x3 de Riesgos</h2>
@@ -964,7 +412,7 @@
             </div>
         </div>
 
-        <!-- Slide 13: Conclusiones -->
+        <!-- Slide 14: Conclusiones -->
         <div class="slide">
             <div class="slide-header">
                 <h2>Conclusiones</h2>
@@ -1006,7 +454,7 @@
     <!-- Controles de navegación -->
     <div class="navigation">
         <button class="nav-button" id="prevBtn">◀ Anterior</button>
-        <span class="slide-counter" id="slideCounter">1 / 6</span>
+        <span class="slide-counter" id="slideCounter">1 / 14</span>
         <button class="nav-button" id="nextBtn">Siguiente ▶</button>
     </div>
 
