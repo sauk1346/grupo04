@@ -1,0 +1,1117 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Plataforma de Gestión de Cursos Online</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 50%, #4facfe 100%);
+            background-size: 400% 400%;
+            animation: gradientShift 15s ease infinite;
+            color: #333;
+            overflow: hidden;
+        }
+
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .presentation-container {
+            width: 100vw;
+            height: 100vh;
+            position: relative;
+        }
+
+        .slide {
+            width: 100%;
+            height: 100%;
+            padding: 40px;
+            display: none;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(15px);
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            position: absolute;
+            top: 0;
+            left: 0;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            transition: all 0.5s ease;
+        }
+
+        .slide.active {
+            display: flex;
+            flex-direction: column;
+            animation: slideIn 0.6s ease-out;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Header estilo Warsaw mejorado */
+        .slide-header {
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: white;
+            padding: 20px 30px;
+            margin: -40px -40px 30px -40px;
+            position: relative;
+            border-radius: 15px 15px 0 0;
+            box-shadow: 0 8px 30px rgba(30, 60, 114, 0.3);
+            border-bottom: 3px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .slide-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, transparent 30%, rgba(255,255,255,0.1) 50%, transparent 70%);
+            animation: shimmer 3s infinite;
+        }
+
+        @keyframes shimmer {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+
+        .slide-header h1 {
+            font-size: 2.2em;
+            font-weight: 700;
+            text-shadow: 2px 2px 8px rgba(0,0,0,0.3);
+            position: relative;
+            z-index: 1;
+        }
+
+        .slide-header h2 {
+            font-size: 1.8em;
+            font-weight: 600;
+            margin-bottom: 10px;
+            position: relative;
+            z-index: 1;
+            text-shadow: 1px 1px 4px rgba(0,0,0,0.2);
+        }
+
+        /* Slide de título mejorado */
+        .title-slide {
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 50%, #4facfe 100%);
+            background-size: 400% 400%;
+            animation: gradientShift 15s ease infinite;
+            color: white;
+            text-align: center;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .title-slide::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 20% 50%, rgba(255,255,255,0.1) 0%, transparent 50%),
+                        radial-gradient(circle at 80% 20%, rgba(255,255,255,0.1) 0%, transparent 50%),
+                        radial-gradient(circle at 40% 80%, rgba(255,255,255,0.1) 0%, transparent 50%);
+            animation: float 6s ease-in-out infinite alternate;
+        }
+
+        @keyframes float {
+            0% { transform: translate(0px, 0px) rotate(0deg); }
+            100% { transform: translate(30px, -30px) rotate(10deg); }
+        }
+
+        .title-slide h1 {
+            font-size: 3.8em;
+            margin-bottom: 30px;
+            text-shadow: 3px 3px 12px rgba(0,0,0,0.5);
+            position: relative;
+            z-index: 1;
+            font-weight: 800;
+            letter-spacing: -1px;
+            animation: titleGlow 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes titleGlow {
+            0% { text-shadow: 3px 3px 12px rgba(0,0,0,0.5); }
+            100% { text-shadow: 3px 3px 20px rgba(255,255,255,0.3), 3px 3px 12px rgba(0,0,0,0.5); }
+        }
+
+        .title-slide .authors {
+            font-size: 1.4em;
+            margin-bottom: 25px;
+            opacity: 0.95;
+            position: relative;
+            z-index: 1;
+            font-weight: 500;
+            text-shadow: 1px 1px 4px rgba(0,0,0,0.3);
+        }
+
+        .title-slide .institute {
+            font-size: 1.1em;
+            margin-bottom: 30px;
+            opacity: 0.9;
+            position: relative;
+            z-index: 1;
+            line-height: 1.6;
+            text-shadow: 1px 1px 4px rgba(0,0,0,0.3);
+        }
+
+        .title-slide .date {
+            font-size: 1.3em;
+            font-weight: 600;
+            position: relative;
+            z-index: 1;
+            padding: 12px 24px;
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 25px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            text-shadow: 1px 1px 4px rgba(0,0,0,0.3);
+        }
+
+        /* Contenido principal */
+        .slide-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Columnas */
+        .columns {
+            display: flex;
+            gap: 20px;
+            flex: 1;
+        }
+
+        .column {
+            flex: 1;
+        }
+
+        /* Bloques mejorados */
+        .block {
+            background: linear-gradient(145deg, #ffffff 0%, #f8fafc 100%);
+            border: 1px solid rgba(30, 60, 114, 0.2);
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 20px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.08), 0 2px 8px rgba(30, 60, 114, 0.1);
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .block::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(30, 60, 114, 0.1), transparent);
+            transition: left 0.6s ease;
+        }
+
+        .block:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.15), 0 5px 15px rgba(30, 60, 114, 0.2);
+            border-color: rgba(30, 60, 114, 0.4);
+        }
+
+        .block:hover::before {
+            left: 100%;
+        }
+
+        .block h3 {
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: white;
+            padding: 15px 20px;
+            margin: -25px -25px 20px -25px;
+            border-radius: 15px 15px 0 0;
+            font-size: 1.3em;
+            font-weight: 600;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.2);
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Listas */
+        ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        li {
+            margin: 8px 0;
+            padding: 5px 0 5px 20px;
+            position: relative;
+        }
+
+        li::before {
+            content: "▶";
+            color: #2c5282;
+            position: absolute;
+            left: 0;
+            font-size: 0.8em;
+        }
+
+        /* Texto en negrita */
+        .bold {
+            font-weight: bold;
+            color: #2c5282;
+        }
+
+        /* Imágenes con zoom mejoradas */
+        .image-container {
+            text-align: center;
+            margin: 20px 0;
+            position: relative;
+        }
+
+        .zoomable-image {
+            max-width: 100%;
+            max-height: 400px;
+            cursor: pointer;
+            border-radius: 12px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+            transition: all 0.4s ease;
+            border: 2px solid rgba(30, 60, 114, 0.2);
+        }
+
+        .zoomable-image:hover {
+            transform: scale(1.05) rotate(1deg);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.25);
+            border-color: rgba(30, 60, 114, 0.4);
+        }
+
+        /* Modal para zoom de imágenes */
+        .image-modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.98);
+            cursor: pointer;
+            backdrop-filter: blur(8px);
+        }
+
+        .modal-content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            max-width: 98%;
+            max-height: 98%;
+            border-radius: 10px;
+            box-shadow: 0 25px 80px rgba(0,0,0,0.8);
+            transition: transform 0.4s ease;
+            cursor: zoom-out;
+            object-fit: contain;
+        }
+
+        .modal-content:hover {
+            transform: translate(-50%, -50%) scale(1.01);
+        }
+
+        .close {
+            position: fixed;
+            top: 20px;
+            right: 30px;
+            color: #ffffff;
+            font-size: 60px;
+            font-weight: bold;
+            cursor: pointer;
+            z-index: 1001;
+            background: rgba(0,0,0,0.8);
+            border-radius: 50%;
+            width: 80px;
+            height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
+        }
+
+        .close:hover {
+            background: rgba(220,20,20,0.9);
+            transform: scale(1.15);
+            box-shadow: 0 0 20px rgba(220,20,20,0.5);
+        }
+
+        /* Indicador de zoom */
+        .zoom-hint {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: white;
+            background: rgba(0,0,0,0.8);
+            padding: 12px 25px;
+            border-radius: 25px;
+            font-size: 15px;
+            z-index: 1001;
+            opacity: 0.9;
+            border: 1px solid rgba(255,255,255,0.2);
+            backdrop-filter: blur(10px);
+        }
+
+        /* Controles de navegación mejorados */
+        .navigation {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: linear-gradient(135deg, rgba(30, 60, 114, 0.9) 0%, rgba(42, 82, 152, 0.9) 100%);
+            backdrop-filter: blur(15px);
+            padding: 12px 24px;
+            border-radius: 25px;
+            z-index: 100;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+        }
+
+        .nav-button {
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            margin: 0 5px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(30, 60, 114, 0.3);
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
+        }
+
+        .nav-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(30, 60, 114, 0.4);
+            background: linear-gradient(135deg, #2a5298 0%, #4facfe 100%);
+        }
+
+        .nav-button:disabled {
+            background: linear-gradient(135deg, #a0a0a0 0%, #808080 100%);
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .slide-counter {
+            color: white;
+            margin: 0 15px;
+            font-size: 14px;
+            font-weight: 600;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+        }
+
+        /* Matriz de riesgos */
+        .risk-matrix {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            margin: 20px 0;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .risk-cell {
+            aspect-ratio: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            border: 2px solid #333;
+            border-radius: 8px;
+            font-size: 0.9em;
+        }
+
+        .risk-low { background-color: #4CAF50; color: black; }
+        .risk-medium { background-color: #FFEB3B; color: black; }
+        .risk-high { background-color: #FF9800; color: black; }
+        .risk-critical { background-color: #F44336; color: white; }
+
+        /* Leyenda de la matriz */
+        .matrix-legend {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .axis-label {
+            font-weight: bold;
+            font-size: 1.1em;
+            margin: 10px 0;
+        }
+
+        /* Contenedor con scroll para diagramas */
+        .scrollable-content {
+            flex: 1;
+            overflow: auto;
+            padding: 20px;
+            height: 100%;
+            max-height: calc(100vh - 120px);
+        }
+
+        .diagram-container {
+            text-align: center;
+            padding: 20px;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+        }
+
+        .large-diagram {
+            width: auto;
+            height: auto;
+            max-width: none;
+            max-height: none;
+            min-width: 1400px;
+            cursor: pointer;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+            transition: transform 0.3s ease;
+            margin: 20px 0;
+            display: block;
+        }
+
+        .large-diagram:hover {
+            transform: scale(1.01);
+        }
+
+        .diagram-title {
+            font-size: 1.4em;
+            color: #2c5282;
+            font-weight: bold;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+
+        .diagram-description {
+            max-width: 800px;
+            font-size: 1.1em;
+            line-height: 1.6;
+            color: #555;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        /* Scroll personalizado */
+        .scrollable-content::-webkit-scrollbar {
+            width: 12px;
+            height: 12px;
+        }
+
+        .scrollable-content::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 6px;
+        }
+
+        .scrollable-content::-webkit-scrollbar-thumb {
+            background: #3182ce;
+            border-radius: 6px;
+        }
+
+        .scrollable-content::-webkit-scrollbar-thumb:hover {
+            background: #2c5282;
+        }
+        @media (max-width: 768px) {
+            .slide {
+                padding: 20px;
+            }
+            
+            .columns {
+                flex-direction: column;
+            }
+            
+            .slide-header h1 {
+                font-size: 1.8em;
+            }
+            
+            .title-slide h1 {
+                font-size: 2.5em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="presentation-container">
+        
+        <!-- Slide 1: Portada -->
+        <div class="slide active title-slide">
+            <h1>Plataforma de Gestión de Cursos Online</h1>
+            <div class="authors">S. Araujo, G. Lettieri, A. Morales, L. Núñez, F. Palacios, J. Sepúlveda</div>
+            <div class="institute">
+                Profesor: Eugenio Alberto Bravo García<br>
+                Asignatura: Ingeniería de Software<br>
+                Ingeniería Informática - INACAP
+            </div>
+            <div class="date">29 de Mayo de 2025</div>
+        </div>
+
+        <!-- Slide 2: Introducción -->
+        <div class="slide">
+            <div class="slide-header">
+                <h2>Introducción</h2>
+            </div>
+            <div class="slide-content">
+                <div class="image-container">
+                    <img src="https://via.placeholder.com/600x300/3182ce/white?text=Plataforma+Educativa" 
+                         alt="Plataforma integral" class="zoomable-image">
+                </div>
+                
+                <ul style="font-size: 1.3em; line-height: 1.6;">
+                    <li><span class="bold">Plataforma integral</span> para cursos online</li>
+                    <li>Dirigida a <span class="bold">estudiantes, docentes y administradores</span></li>
+                    <li><span class="bold">Objetivo:</span> mejorar experiencia académica y gestión educativa moderna</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Slide 3: Análisis del Contexto y Alcance -->
+        <div class="slide">
+            <div class="slide-header">
+                <h2>Análisis del Contexto y Alcance</h2>
+            </div>
+            <div class="slide-content">
+                <div class="columns">
+                    <div class="column">
+                        <div class="block">
+                            <h3>Estudiantes</h3>
+                            <ul>
+                                <li>Inscripción a cursos</li>
+                                <li>Materiales multimedia</li>
+                                <li>Evaluaciones online</li>
+                                <li>Progreso en tiempo real</li>
+                                <li>Certificados QR</li>
+                                <li><span class="bold">Resúmenes IA</span></li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="column">
+                        <div class="block">
+                            <h3>Docentes</h3>
+                            <ul>
+                                <li>Creación y gestión de cursos</li>
+                                <li>Subida de materiales</li>
+                                <li>Diseño de evaluaciones</li>
+                                <li>Seguimiento de alumnos</li>
+                                <li>Calificación automática</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="column">
+                        <div class="block">
+                            <h3>Administradores</h3>
+                            <ul>
+                                <li>Gestión de usuarios y roles</li>
+                                <li>Supervisión de cursos</li>
+                                <li>Reportes del sistema</li>
+                                <li>Configuración global</li>
+                                <li>Control de certificados</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 4: Metodología y Planificación -->
+        <div class="slide">
+            <div class="slide-header">
+                <h2>Metodología y Planificación</h2>
+            </div>
+            <div class="slide-content">
+                <div class="block" style="margin-bottom: 20px;">
+                    <h3>Marco ágil</h3>
+                    <p style="font-size: 1.2em;">Scrum con 12 sprints organizados en 3 fases de desarrollo incremental</p>
+                </div>
+
+                <div class="columns">
+                    <div class="column">
+                        <div class="block">
+                            <h3>Fase 1 (Sprints 1-4)</h3>
+                            <ul>
+                                <li>Autenticación</li>
+                                <li>CRUD cursos</li>
+                                <li>Evaluaciones básicas</li>
+                                <li>Certificados iniciales</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="column">
+                        <div class="block">
+                            <h3>Fase 2 (Sprints 5-8)</h3>
+                            <ul>
+                                <li>Móvil y accesibilidad</li>
+                                <li>OAuth y 2FA</li>
+                                <li>IA resúmenes</li>
+                                <li>Métricas tiempo real</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="column">
+                        <div class="block">
+                            <h3>Fase 3 (Sprints 9-12)</h3>
+                            <ul>
+                                <li>Pruebas rendimiento</li>
+                                <li>Seguridad avanzada</li>
+                                <li>CI/CD completo</li>
+                                <li>Release candidato</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div style="text-align: center; margin-top: 20px; padding: 15px; background: #f0f4f8; border-radius: 10px;">
+                    <span class="bold" style="font-size: 1.2em;">Equipo:</span> PO/UX, Backend Lead, Backend, Frontend, Fullstack, QA
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 5: Requerimientos -->
+        <div class="slide">
+            <div class="slide-header">
+                <h2>Requerimientos</h2>
+            </div>
+            <div class="slide-content">
+                <div class="block" style="margin-bottom: 20px;">
+                    <h3>Técnicas de levantamiento</h3>
+                    <p style="font-size: 1.1em;">Entrevistas con usuarios clave, historias de usuario, observación de plataformas similares</p>
+                </div>
+
+                <div class="columns">
+                    <div class="column">
+                        <div class="block">
+                            <h3>17 Requerimientos Funcionales</h3>
+                            <ul>
+                                <li>Login con OAuth</li>
+                                <li>Gestión completa de cursos</li>
+                                <li>Materiales multimedia</li>
+                                <li>Evaluaciones automáticas</li>
+                                <li>Certificados QR verificables</li>
+                                <li><span class="bold">IA para resúmenes</span></li>
+                                <li>Notificaciones</li>
+                                <li>Historial académico</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="column">
+                        <div class="block">
+                            <h3>12 Requerimientos No Funcionales</h3>
+                            <ul>
+                                <li>Seguridad: HTTPS, hash seguro</li>
+                                <li>Disponibilidad: ≥99.5%</li>
+                                <li>Rendimiento: ≤3s respuesta</li>
+                                <li>Accesibilidad: WCAG 2.1 AA</li>
+                                <li>Escalabilidad: 500 usuarios</li>
+                                <li>Backups automáticos</li>
+                                <li>Trazabilidad completa</li>
+                                <li>Observabilidad con métricas</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 6: Diagrama de Casos de Uso -->
+        <div class="slide diagram-slide">
+            <div class="slide-header">
+                <h2>Diagrama de Casos de Uso</h2>
+            </div>
+            <div class="slide-content">
+                <div class="scrollable-content">
+                    <div class="diagram-container">
+                        <img src="images/fig01.png" 
+                             alt="Diagrama de Casos de Uso" class="large-diagram zoomable-image">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 7: Diagrama de Clases -->
+        <div class="slide diagram-slide">
+            <div class="slide-header">
+                <h2>Diagrama de Clases</h2>
+            </div>
+            <div class="slide-content">
+                <div class="scrollable-content">
+                    <div class="diagram-container">
+                        <img src="images/fig02.png" 
+                             alt="Diagrama de Clases" class="large-diagram zoomable-image">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 8: Diagrama de Secuencia -->
+        <div class="slide diagram-slide">
+            <div class="slide-header">
+                <h2>Diagrama de Secuencia - Estudiante Realiza Quiz</h2>
+            </div>
+            <div class="slide-content">
+                <div class="scrollable-content">
+                    <div class="diagram-container">
+                        <img src="images/fig03-8.png" 
+                             alt="Diagrama de Secuencia - Estudiante Realiza Quiz" class="large-diagram zoomable-image">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 9: Diagrama de Actividad -->
+        <div class="slide diagram-slide">
+            <div class="slide-header">
+                <h2>Diagrama de Actividad - Flujo de Curso Online</h2>
+            </div>
+            <div class="slide-content">
+                <div class="scrollable-content">
+                    <div class="diagram-container">
+                        <img src="images/fig04.png" 
+                             alt="Diagrama de Actividad - Flujo de Curso Online" class="large-diagram zoomable-image">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 10: Patrones de Diseño -->
+        <div class="slide">
+            <div class="slide-header">
+                <h2>Patrones de Diseño</h2>
+            </div>
+            <div class="slide-content">
+                <div class="columns">
+                    <div class="column">
+                        <div class="block">
+                            <h3>Observer</h3>
+                            <p style="font-weight: bold; margin-bottom: 10px;">Notificaciones automáticas</p>
+                            <ul>
+                                <li>Señales Django</li>
+                                <li>Desacoplamiento</li>
+                                <li>Múltiples observadores</li>
+                                <li>Extensibilidad</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="column">
+                        <div class="block">
+                            <h3>Singleton</h3>
+                            <p style="font-weight: bold; margin-bottom: 10px;">Configuración global</p>
+                            <ul>
+                                <li>API, email, límites</li>
+                                <li>Instancia única</li>
+                                <li>Consistencia</li>
+                                <li>Control centralizado</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="column">
+                        <div class="block">
+                            <h3>Factory</h3>
+                            <p style="font-weight: bold; margin-bottom: 10px;">Creación contenidos</p>
+                            <ul>
+                                <li>PDF, video, quiz</li>
+                                <li>Creación centralizada</li>
+                                <li>Validaciones específicas</li>
+                                <li>Mantenibilidad</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div style="text-align: center; margin-top: 30px; padding: 15px; background: #f0f4f8; border-radius: 10px;">
+                    <span class="bold" style="font-size: 1.2em;">Justificación:</span> simplicidad, mantenibilidad, extensibilidad
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 10: Estándares de Calidad -->
+        <div class="slide">
+            <div class="slide-header">
+                <h2>Estándares de Calidad</h2>
+            </div>
+            <div class="slide-content">
+                <div class="columns">
+                    <div class="column">
+                        <div class="block">
+                            <h3>ISO/IEC 12207</h3>
+                            <p style="font-weight: bold; margin-bottom: 10px;">Ciclo de vida de software</p>
+                            <ul>
+                                <li>Procesos de adquisición</li>
+                                <li>Desarrollo con Scrum</li>
+                                <li>Operación y mantenimiento</li>
+                                <li>Entrega incremental</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="column">
+                        <div class="block">
+                            <h3>ISO/IEC 25000 (SQuaRE)</h3>
+                            <p style="font-weight: bold; margin-bottom: 10px;">Métricas objetivas de calidad</p>
+                            <ul>
+                                <li>Latencia ≤2s promedio</li>
+                                <li>Uptime ≥99.5%</li>
+                                <li>Accesibilidad WCAG 2.1 AA</li>
+                                <li>Seguridad: 100% datos encriptados</li>
+                                <li>Escalabilidad: 500+ usuarios</li>
+                                <li>Mantenibilidad: >70% cobertura</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div style="text-align: center; margin-top: 30px; padding: 15px; background: #f0f4f8; border-radius: 10px;">
+                    <span class="bold" style="font-size: 1.2em;">Enfoque preventivo:</span> calidad medida desde etapas tempranas del desarrollo
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 11: Trazabilidad y Riesgos -->
+        <div class="slide">
+            <div class="slide-header">
+                <h2>Trazabilidad y Riesgos</h2>
+            </div>
+            <div class="slide-content">
+                <div class="columns">
+                    <div class="column">
+                        <div class="block">
+                            <h3>Matriz de Trazabilidad (RTM)</h3>
+                            <ul>
+                                <li>Coherencia: RF/RNF ↔ UML ↔ Pruebas</li>
+                                <li>Criterios de aceptación claros</li>
+                                <li>Trazabilidad completa</li>
+                                <li>Control de cobertura funcional</li>
+                            </ul>
+                        </div>
+
+                        <div class="block">
+                            <h3>Principales Riesgos Identificados</h3>
+                            <ul>
+                                <li><span class="bold">R1:</span> Fallas autenticación (Crítico)</li>
+                                <li><span class="bold">R3:</span> Ataques seguridad (Crítico)</li>
+                                <li><span class="bold">R2:</span> Pérdida datos (Alto)</li>
+                                <li><span class="bold">R8:</span> Vulneración privacidad (Alto)</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="column">
+                        <div class="block">
+                            <h3>Medidas de Mitigación</h3>
+                            <p style="font-weight: bold; margin-bottom: 10px;">Riesgos Críticos:</p>
+                            <ul>
+                                <li>Tokens JWT + pruebas estrés</li>
+                                <li>Validación entradas + sanitización</li>
+                                <li>Pruebas penetración</li>
+                            </ul>
+
+                            <p style="font-weight: bold; margin: 15px 0 10px 0;">Riesgos Altos:</p>
+                            <ul>
+                                <li>Backups automatizados diarios</li>
+                                <li>Redundancia BD + replicación</li>
+                                <li>HTTPS obligatorio + RBAC</li>
+                                <li>Encriptación end-to-end</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 12: Matriz 3x3 de Riesgos -->
+        <div class="slide">
+            <div class="slide-header">
+                <h2>Matriz 3x3 de Riesgos</h2>
+            </div>
+            <div class="slide-content">
+                <div class="image-container">
+                    <img src="images/fig05.png" 
+                         alt="Matriz 3x3 de Riesgos" class="zoomable-image" style="max-height: 600px; width: auto;">
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 13: Conclusiones -->
+        <div class="slide">
+            <div class="slide-header">
+                <h2>Conclusiones</h2>
+            </div>
+            <div class="slide-content">
+                <div class="block">
+                    <h3>Integración exitosa teoría-práctica</h3>
+                    <ul>
+                        <li>Proyecto integra conceptos fundamentales de <span class="bold">Ingeniería de Software</span></li>
+                        <li>Aplicación práctica de metodologías ágiles, UML, patrones de diseño</li>
+                        <li>Cumplimiento de <span class="bold">estándares internacionales</span> de calidad</li>
+                    </ul>
+                </div>
+
+                <div class="block">
+                    <h3>Solución integral y moderna</h3>
+                    <ul>
+                        <li>Gestión completa: cursos, materiales, evaluaciones, <span class="bold">certificados QR</span></li>
+                        <li><span class="bold">Valor agregado:</span> IA para resúmenes automáticos de clases</li>
+                        <li>Plataforma funcional, escalable y alineada a <span class="bold">necesidades académicas</span></li>
+                    </ul>
+                </div>
+
+                <div style="text-align: center; margin-top: 40px;">
+                    <h1 style="font-size: 2.5em; color: #2c5282; margin-bottom: 20px;">¿Preguntas?</h1>
+                    <p style="font-size: 1.3em; font-style: italic; color: #666;">Muchas gracias por su atención</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal para zoom de imágenes -->
+    <div id="imageModal" class="image-modal">
+        <span class="close">&times;</span>
+        <img class="modal-content" id="modalImage">
+        <div class="zoom-hint">Presiona ESC o haz clic fuera de la imagen para cerrar</div>
+    </div>
+
+    <!-- Controles de navegación -->
+    <div class="navigation">
+        <button class="nav-button" id="prevBtn">◀ Anterior</button>
+        <span class="slide-counter" id="slideCounter">1 / 6</span>
+        <button class="nav-button" id="nextBtn">Siguiente ▶</button>
+    </div>
+
+    <script>
+        // Variables globales
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
+        const totalSlides = slides.length;
+
+        // Elementos de navegación
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        const slideCounter = document.getElementById('slideCounter');
+
+        // Modal de imagen
+        const modal = document.getElementById('imageModal');
+        const modalImg = document.getElementById('modalImage');
+        const closeModal = document.querySelector('.close');
+
+        // Funciones de navegación
+        function showSlide(n) {
+            slides[currentSlide].classList.remove('active');
+            currentSlide = (n + totalSlides) % totalSlides;
+            slides[currentSlide].classList.add('active');
+            
+            // Actualizar contador
+            slideCounter.textContent = `${currentSlide + 1} / ${totalSlides}`;
+            
+            // Actualizar botones
+            prevBtn.disabled = currentSlide === 0;
+            nextBtn.disabled = currentSlide === totalSlides - 1;
+        }
+
+        function nextSlide() {
+            if (currentSlide < totalSlides - 1) {
+                showSlide(currentSlide + 1);
+            }
+        }
+
+        function prevSlide() {
+            if (currentSlide > 0) {
+                showSlide(currentSlide - 1);
+            }
+        }
+
+        // Event listeners para navegación
+        nextBtn.addEventListener('click', nextSlide);
+        prevBtn.addEventListener('click', prevSlide);
+
+        // Navegación con teclado
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'ArrowRight' || e.key === ' ') {
+                e.preventDefault();
+                nextSlide();
+            } else if (e.key === 'ArrowLeft') {
+                e.preventDefault();
+                prevSlide();
+            } else if (e.key === 'Escape') {
+                if (modal.style.display === 'block') {
+                    closeModalFunction();
+                }
+            }
+        });
+
+        // Funcionalidad de zoom para imágenes
+        document.querySelectorAll('.zoomable-image').forEach(img => {
+            img.addEventListener('click', function() {
+                modal.style.display = 'block';
+                modalImg.src = this.src;
+                modalImg.alt = this.alt;
+                
+                // Animación de entrada suave
+                modal.style.opacity = '0';
+                setTimeout(() => {
+                    modal.style.opacity = '1';
+                }, 50);
+            });
+        });
+
+        // Cerrar modal
+        closeModal.addEventListener('click', function(e) {
+            e.stopPropagation();
+            closeModalFunction();
+        });
+
+        modal.addEventListener('click', function(e) {
+            if (e.target === modal) {
+                closeModalFunction();
+            }
+        });
+
+        function closeModalFunction() {
+            modal.style.opacity = '0';
+            setTimeout(() => {
+                modal.style.display = 'none';
+            }, 200);
+        }
+
+        // Prevenir que la imagen clickeada cierre el modal
+        modalImg.addEventListener('click', function(e) {
+            e.stopPropagation();
+        });
+
+        // Inicializar presentación
+        showSlide(0);
+    </script>
+</body>
+</html>
