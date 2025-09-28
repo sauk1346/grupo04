@@ -10,7 +10,9 @@ Presentación correspondiente al Grupo 04 del ramo "Ingeniería de Software"
 
 - Introducción
 - Análisis del Contexto y Alcance
+- Proceso de Cocreación
 - Metodolgía y Planificación
+- Work Breakdown Structure y Ruta Crítica
 - Requerimientos
 - Diagramas UML
     - Diagrama de Caso de Uso

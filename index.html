@@ -567,15 +567,103 @@
             </div>
         </div>
 
-        <!-- Slide 15: Matriz 3x3 de Riesgos -->
+        <!-- Slide 15: Matriz 3x3 de Riesgos MEJORADA -->
         <div class="slide">
             <div class="slide-header">
                 <h2>Matriz 3x3 de Riesgos</h2>
             </div>
             <div class="slide-content">
-                <div class="image-container">
-                    <img src="images/fig05.png" 
-                         alt="Matriz 3x3 de Riesgos" class="zoomable-image" style="max-height: 600px; width: auto;">
+                <!-- Reorganizar en 3 columnas -->
+                <div class="columns risk-matrix-layout">
+                    <!-- Columna 1: Tabla de riesgos -->
+                    <div class="column risk-table-column">
+                        <div class="block">
+                            <h3>Identificación de Riesgos</h3>
+                            <div class="risk-table-container">
+                                <table class="risk-table">
+                                    <thead>
+                                        <tr>
+                                            <th>ID</th>
+                                            <th>Descripción</th>
+                                            <th>Nivel</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr><td class="risk-id">R1</td><td>Fallas en autenticación</td><td class="risk-critical">Crítico</td></tr>
+                                        <tr><td class="risk-id">R2</td><td>Pérdida de datos académicos</td><td class="risk-high">Alto</td></tr>
+                                        <tr><td class="risk-id">R3</td><td>Ataques de seguridad</td><td class="risk-critical">Crítico</td></tr>
+                                        <tr><td class="risk-id">R4</td><td>Problemas de rendimiento</td><td class="risk-medium">Medio</td></tr>
+                                        <tr><td class="risk-id">R5</td><td>Fallas integración IA</td><td class="risk-high">Alto</td></tr>
+                                        <tr><td class="risk-id">R6</td><td>Incompatibilidad navegadores</td><td class="risk-medium">Medio</td></tr>
+                                        <tr><td class="risk-id">R7</td><td>Retrasos desarrollo</td><td class="risk-low">Bajo</td></tr>
+                                        <tr><td class="risk-id">R8</td><td>Vulneración privacidad</td><td class="risk-high">Alto</td></tr>
+                                        <tr><td class="risk-id">R9</td><td>Problemas usabilidad</td><td class="risk-low">Bajo</td></tr>
+                                        <tr><td class="risk-id">R10</td><td>Falta adopción usuarios</td><td class="risk-low">Bajo</td></tr>
+                                        <tr><td class="risk-id">R11</td><td>Fallos certificados QR</td><td class="risk-low">Bajo</td></tr>
+                                        <tr><td class="risk-id">R12</td><td>Dependencia APIs externas</td><td class="risk-medium">Medio</td></tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Columna 2: Matriz visual -->
+                    <div class="column matrix-visual-column">
+                        <div class="image-container">
+                            <img src="images/fig05.png" 
+                                 alt="Matriz 3x3 de Riesgos" class="zoomable-image matrix-image">
+                        </div>
+                    </div>
+                    
+                    <!-- Columna 3: Escalas y acciones -->
+                    <div class="column info-details-column">
+                        <!-- Escalas cuantitativas -->
+                        <div class="block scales-block">
+                            <h3>Escalas de Evaluación</h3>
+                            <div class="scales-content">
+                                <div class="scale-section">
+                                    <h4>Probabilidad:</h4>
+                                    <ul class="scale-list">
+                                        <li><span class="scale-label">Baja:</span> &lt;10%</li>
+                                        <li><span class="scale-label">Media:</span> 10-50%</li>
+                                        <li><span class="scale-label">Alta:</span> &gt;50%</li>
+                                    </ul>
+                                </div>
+                                
+                                <div class="scale-section">
+                                    <h4>Impacto:</h4>
+                                    <ul class="scale-list">
+                                        <li><span class="scale-label">Bajo:</span> &lt;1 día</li>
+                                        <li><span class="scale-label">Medio:</span> 1-5 días</li>
+                                        <li><span class="scale-label">Alto:</span> &gt;5 días</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Acciones por nivel -->
+                        <div class="block actions-block">
+                            <h3>Acciones Requeridas</h3>
+                            <div class="actions-content">
+                                <div class="action-item">
+                                    <div class="action-color risk-low-color"></div>
+                                    <span><span class="action-label">Bajo:</span> Monitoreo rutinario</span>
+                                </div>
+                                <div class="action-item">
+                                    <div class="action-color risk-medium-color"></div>
+                                    <span><span class="action-label">Medio:</span> Planes contingencia</span>
+                                </div>
+                                <div class="action-item">
+                                    <div class="action-color risk-high-color"></div>
+                                    <span><span class="action-label">Alto:</span> Mitigación activa</span>
+                                </div>
+                                <div class="action-item">
+                                    <div class="action-color risk-critical-color"></div>
+                                    <span><span class="action-label">Crítico:</span> Acción inmediata</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

@@ -710,6 +710,256 @@ li::before {
     background: #2c5282;
 }
 
+/* Estilos específicos para la matriz de riesgos mejorada */
+
+/* Tabla de riesgos */
+.risk-table-container {
+    max-height: 200px;
+    overflow-y: auto;
+    margin-bottom: 15px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.95);
+}
+
+.risk-table {
+    width: 100%;
+    font-size: 0.85em;
+    border-collapse: collapse;
+}
+
+.risk-table thead th {
+    background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+    color: white;
+    position: sticky;
+    top: 0;
+    border: 1px solid #ddd;
+    padding: 10px 8px;
+    text-align: center;
+    font-weight: 600;
+    z-index: 10;
+}
+
+.risk-table thead th:first-child {
+    width: 8%;
+}
+
+.risk-table thead th:nth-child(2) {
+    width: 70%;
+    text-align: left;
+}
+
+.risk-table thead th:last-child {
+    width: 22%;
+}
+
+.risk-table tbody td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    transition: background-color 0.2s ease;
+}
+
+.risk-table tbody tr:hover {
+    background-color: rgba(79, 172, 254, 0.1);
+}
+
+.risk-id {
+    text-align: center;
+    font-weight: bold;
+    font-family: 'Courier New', monospace;
+    background: rgba(30, 60, 114, 0.1);
+}
+
+/* Categorías de riesgo con colores */
+.risk-critical {
+    background-color: #d32f2f;
+    color: white;
+    text-align: center;
+    font-weight: bold;
+    border-radius: 4px;
+    padding: 4px 8px;
+}
+
+.risk-high {
+    background-color: #ff9800;
+    color: white;
+    text-align: center;
+    font-weight: bold;
+    border-radius: 4px;
+    padding: 4px 8px;
+}
+
+.risk-medium {
+    background-color: #fbc02d;
+    color: black;
+    text-align: center;
+    font-weight: bold;
+    border-radius: 4px;
+    padding: 4px 8px;
+}
+
+.risk-low {
+    background-color: #4caf50;
+    color: white;
+    text-align: center;
+    font-weight: bold;
+    border-radius: 4px;
+    padding: 4px 8px;
+}
+
+/* Layout específico para matriz de riesgos en 3 columnas */
+.risk-matrix-layout {
+    gap: 15px;
+    align-items: flex-start;
+}
+
+.risk-table-column {
+    flex: 1;
+    max-width: 35%;
+    display: flex;
+    flex-direction: column;
+}
+
+.matrix-visual-column {
+    flex: 0.8;
+    max-width: 30%;
+}
+
+.info-details-column {
+    flex: 1;
+    max-width: 35%;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+/* Permitir que la tabla ocupe más espacio vertical */
+.risk-table-column .block {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Ajustes para la tabla en columna */
+.risk-table-container {
+    flex: 1;
+    min-height: 475px;
+    overflow-y: auto;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.95);
+}
+
+.risk-table thead th:nth-child(2) {
+    width: 60%;
+    text-align: left;
+}
+
+.risk-table thead th:last-child {
+    width: 25%;
+}
+
+.matrix-image {
+    max-height: 350px;
+}
+
+/* Bloques específicos */
+.scales-block {
+    margin-bottom: 15px;
+}
+
+.scales-content {
+    font-size: 0.9em;
+}
+
+.scale-section {
+    margin-bottom: 15px;
+}
+
+.scale-section h4 {
+    color: #1e3c72;
+    margin-bottom: 8px;
+    font-size: 1em;
+    font-weight: 600;
+}
+
+.scale-list {
+    margin: 5px 0 10px 0;
+}
+
+.scale-list li {
+    margin: 5px 0;
+    padding: 3px 0 3px 15px;
+    font-size: 0.85em;
+}
+
+.scale-list li::before {
+    content: "•";
+    color: #2a5298;
+    font-size: 1.2em;
+}
+
+.scale-label {
+    font-weight: 600;
+    color: #1e3c72;
+}
+
+/* Acciones por nivel */
+.actions-block {
+    margin-bottom: 20px;
+    min-height: 180px;
+}
+
+.actions-content {
+    font-size: 0.85em;
+    max-height: none;
+    overflow: visible;
+}
+
+.action-item {
+    display: flex;
+    align-items: center;
+    margin: 8px 0;
+    padding: 6px;
+    background: rgba(248, 250, 252, 0.8);
+    border-radius: 6px;
+    transition: background-color 0.2s ease;
+}
+
+.action-item:hover {
+    background: rgba(79, 172, 254, 0.1);
+}
+
+.action-color {
+    width: 15px;
+    height: 15px;
+    margin-right: 10px;
+    border-radius: 3px;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    flex-shrink: 0;
+}
+
+.risk-low-color {
+    background-color: #4caf50;
+}
+
+.risk-medium-color {
+    background-color: #fbc02d;
+}
+
+.risk-high-color {
+    background-color: #ff9800;
+}
+
+.risk-critical-color {
+    background-color: #d32f2f;
+}
+
+.action-label {
+    font-weight: 600;
+    color: #1e3c72;
+}
+
 @media (max-width: 768px) {
     .slide {
         padding: 20px;
@@ -744,5 +994,31 @@ li::before {
     
     .metric-target {
         align-self: flex-end;
+    }
+    
+    /* Ajustes para matriz de riesgos en móvil */
+    .matrix-column,
+    .info-column {
+        flex: 1;
+    }
+    
+    .risk-table {
+        font-size: 0.75em;
+    }
+    
+    .risk-table thead th {
+        padding: 6px 4px;
+    }
+    
+    .risk-table tbody td {
+        padding: 6px 4px;
+    }
+    
+    .action-item {
+        font-size: 0.8em;
+    }
+    
+    .scales-content {
+        font-size: 0.8em;
     }
 }
