@@ -9,10 +9,10 @@ Presentación correspondiente al Grupo 04 del ramo "Ingeniería de Software"
 ## Puntos a Tratar
 
 - Introducción
+- Stack Tecnológico
 - Análisis del Contexto y Alcance
 - Proceso de Cocreación
 - Metodolgía y Planificación
-- Work Breakdown Structure y Ruta Crítica
 - Requerimientos
 - Diagramas UML
     - Diagrama de Caso de Uso
@@ -26,6 +26,7 @@ Presentación correspondiente al Grupo 04 del ramo "Ingeniería de Software"
 - Estándares de Calidad
     - ISO/IEC 12207
     - ISO/IEC 25000 (SQuaRE)
-- Trazabilidad y Riesgos
-    - Matriz 3x3
+- Matriz de Trazabilidad
+- Análisis de Riesgos
+- Matriz 3x3
 - Conclusiones
