@@ -25,6 +25,14 @@ function showSlide(n) {
     // Actualizar botones
     prevBtn.disabled = currentSlide === 0;
     nextBtn.disabled = currentSlide === totalSlides - 1;
+    
+    // Resetear scroll en contenedores scrollables
+    const scrollableContent = slides[currentSlide].querySelector('.scrollable-content');
+    if (scrollableContent) {
+        scrollableContent.scrollTop = 0;
+        scrollableContent.scrollLeft = 0;
+        scrollableContent.classList.remove('scrolled', 'scroll-end');
+    }
 }
 
 function nextSlide() {
@@ -61,6 +69,8 @@ document.addEventListener('keydown', function(e) {
     } else if (e.key === 'End') {
         e.preventDefault();
         showSlide(totalSlides - 1);
+    } else if (e.key === 'f' || e.key === 'F') {
+        toggleFullScreen();
     }
 });
 
@@ -119,34 +129,25 @@ document.addEventListener('touchend', function(e) {
 }, false);
 
 function handleSwipe() {
-    const swipeThreshold = 50; // mínimo de píxeles para considerar un swipe
+    const swipeThreshold = 50;
     
     if (touchEndX < touchStartX - swipeThreshold) {
-        // Swipe izquierda - siguiente slide
         nextSlide();
     }
     
     if (touchEndX > touchStartX + swipeThreshold) {
-        // Swipe derecha - slide anterior
         prevSlide();
     }
 }
 
 // Prevenir scroll accidental durante presentación
 document.addEventListener('wheel', function(e) {
-    // Solo prevenir scroll si no estamos en un área con scroll
     if (!e.target.closest('.scrollable-content')) {
         e.preventDefault();
     }
 }, { passive: false });
 
 // Modo presentación (fullscreen)
-document.addEventListener('keydown', function(e) {
-    if (e.key === 'f' || e.key === 'F') {
-        toggleFullScreen();
-    }
-});
-
 function toggleFullScreen() {
     if (!document.fullscreenElement) {
         document.documentElement.requestFullscreen().catch(err => {
@@ -164,27 +165,22 @@ function addScrollIndicators() {
     const scrollableContents = document.querySelectorAll('.scrollable-content');
     
     scrollableContents.forEach(container => {
-        // Verificar si hay scroll horizontal
         const hasHorizontalScroll = container.scrollWidth > container.clientWidth;
         const hasVerticalScroll = container.scrollHeight > container.clientHeight;
         
         if (hasHorizontalScroll || hasVerticalScroll) {
-            // Agregar clase para indicar que hay scroll
             container.classList.add('has-scroll');
             
-            // Actualizar indicador al hacer scroll
             container.addEventListener('scroll', function() {
                 const scrollLeft = this.scrollLeft;
                 const scrollTop = this.scrollTop;
                 const maxScrollLeft = this.scrollWidth - this.clientWidth;
                 const maxScrollTop = this.scrollHeight - this.clientHeight;
                 
-                // Remover indicador si se scrolleó
                 if (scrollLeft > 0 || scrollTop > 0) {
                     this.classList.add('scrolled');
                 }
                 
-                // Si llegó al final, remover indicador
                 if (scrollLeft >= maxScrollLeft - 10 && scrollTop >= maxScrollTop - 10) {
                     this.classList.add('scroll-end');
                 }
@@ -193,35 +189,31 @@ function addScrollIndicators() {
     });
 }
 
+// Marcar slides 5 y 14 como compactas
+function markCompactSlides(){
+    const compactSlideTitles = [
+        'Proceso de Cocreación',
+        'Matriz de Trazabilidad (RTM)'
+    ];
+
+    document.querySelectorAll('.slide').forEach(slide => {
+        const h2 = slide.querySelector('.slide-header h2');
+        if (h2 && compactSlideTitles.some(t => h2.textContent.trim().includes(t))) {
+            slide.classList.add('compact-slide');
+        }
+    });
+}
+
 // Inicializar presentación
 showSlide(0);
 
 // Agregar indicadores de scroll después de cargar
-window.addEventListener('load', addScrollIndicators);
+window.addEventListener('load', function() {
+    addScrollIndicators();
+    markCompactSlides();
+});
 
-// Re-evaluar indicadores al cambiar de slide
-function showSlide(n) {
-    slides[currentSlide].classList.remove('active');
-    currentSlide = (n + totalSlides) % totalSlides;
-    slides[currentSlide].classList.add('active');
-    
-    // Actualizar contador
-    slideCounter.textContent = `${currentSlide + 1} / ${totalSlides}`;
-    
-    // Actualizar botones
-    prevBtn.disabled = currentSlide === 0;
-    nextBtn.disabled = currentSlide === totalSlides - 1;
-    
-    // Resetear scroll en contenedores scrollables
-    const scrollableContent = slides[currentSlide].querySelector('.scrollable-content');
-    if (scrollableContent) {
-        scrollableContent.scrollTop = 0;
-        scrollableContent.scrollLeft = 0;
-        scrollableContent.classList.remove('scrolled', 'scroll-end');
-    }
-}
-
-// Log de información útil para desarrolladores
+// Log de información útil
 console.log('🎯 Presentación Plataforma de Gestión de Cursos Online');
 console.log(`📊 Total de slides: ${totalSlides}`);
 console.log('⌨️  Atajos de teclado:');
@@ -233,94 +225,3 @@ console.log('   F: Pantalla completa');
 console.log('   ESC: Cerrar modal de imagen');
 console.log('📱 Gestos táctiles: Swipe izquierda/derecha para navegar');
 console.log('🖱️  Diagramas UML: Scroll horizontal/vertical disponible');
-
-/* ===== Auto-escala para slides sin scroll (5 y 14) ===== */
-(function(){
-  const titlesToNoScroll = [
-    'Proceso de Cocreación',
-    'Matriz de Trazabilidad',
-    'Matriz de Trazabilidad (RTM)'
-  ];
-
-  function markNoScrollSlides(){
-    document.querySelectorAll('.slide').forEach(slide => {
-      const h2 = slide.querySelector('.slide-header h2');
-      if (h2 && titlesToNoScroll.some(t => h2.textContent.trim().includes(t))) {
-        slide.classList.add('no-scroll');
-      }
-    });
-  }
-
-  function ensureWrapper(slide){
-    const content = slide.querySelector('.slide-content');
-    if (!content) return null;
-    let fit = content.querySelector('.fit-content');
-    if (!fit){
-      fit = document.createElement('div');
-      fit.className = 'fit-content';
-      // Mover todos los hijos actuales dentro del wrapper
-      const children = Array.from(content.childNodes);
-      children.forEach(ch => fit.appendChild(ch));
-      content.appendChild(fit);
-    }
-    return fit;
-  }
-
-  function scaleSlide(slide){
-    const content = slide.querySelector('.slide-content');
-    if (!content) return;
-    const fit = ensureWrapper(slide);
-    if (!fit) return;
-
-    // Reset para medir
-    fit.style.transform = 'scale(1)';
-    // Forzar reflow
-    void fit.offsetHeight;
-
-    const availableH = content.clientHeight;
-    const availableW = content.clientWidth;
-    const rawH = fit.scrollHeight;
-    const rawW = fit.scrollWidth;
-
-    // Evitar división por cero
-    if (rawH === 0 || rawW === 0) return;
-
-    const scaleY = availableH / rawH;
-    const scaleX = availableW / rawW;
-    const scale = Math.min(1, scaleX, scaleY);
-
-    fit.style.transform = 'scale(' + scale + ')';
-  }
-
-  function scaleActiveNoScroll(){
-    const active = document.querySelector('.slide.active.no-scroll');
-    if (active) scaleSlide(active);
-  }
-
-  function onNav(){
-    requestAnimationFrame(scaleActiveNoScroll);
-  }
-
-  document.addEventListener('DOMContentLoaded', function(){
-    markNoScrollSlides();
-    scaleActiveNoScroll();
-
-    window.addEventListener('resize', scaleActiveNoScroll);
-
-    const prevBtn = document.getElementById('prevBtn');
-    const nextBtn = document.getElementById('nextBtn');
-    if (prevBtn) prevBtn.addEventListener('click', onNav);
-    if (nextBtn) nextBtn.addEventListener('click', onNav);
-
-    // Observa cambios de la clase 'active' en las slides
-    const container = document.querySelector('.presentation-container');
-    if (container) {
-      const mo = new MutationObserver(() => {
-        // pequeño delay para asegurar layout aplicado
-        setTimeout(scaleActiveNoScroll, 0);
-      });
-      mo.observe(container, { subtree: true, attributes: true, attributeFilter: ['class'] });
-    }
-  });
-})();
-
